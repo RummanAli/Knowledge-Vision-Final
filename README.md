@@ -7,7 +7,7 @@ Fusion of data and knowledge into neural networks.
 - Dermnet: [Model](https://github.com/clcarwin/sphereface_pytorch)
 
 ## training
-- python trainer.py --data_dir  --dataset g1020 --model resnet --num_classes 2 --batch_size 16 --input_size 224
+- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model resnet --num_classes 2 --batch_size 16 --input_size 224
 - python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model densenet --num_classes 2 --batch_size 16 --input_size 224
 - python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model knowledge --num_classes 2 --batch_size 16 --input_size 224
 
