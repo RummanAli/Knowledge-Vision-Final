@@ -7,8 +7,8 @@ Fusion of data and knowledge into neural networks.
 - Dermnet: [Model](https://github.com/clcarwin/sphereface_pytorch)
 
 ## Dataset
-- G1020-data: [g1020-link]()
-- Dermnet: [dermnet]()
+- G1020-data: [g1020-link](https://drive.google.com/drive/folders/1xqJeFHW1VrOyPlWPSVyhLjMtjQ71pQQR?usp=sharing)
+- Dermnet: [dermnet](https://drive.google.com/file/d/1g1ILAEzSF-k5scdt4e96MVVvoenSKOL-/view?usp=sharing)
 - ISIC-2019: [isic-2019]()
 
 ## training
