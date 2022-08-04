@@ -144,6 +144,7 @@ def save_outputs_g1020(dn,fold,data_path,directory):
         np.save(os.path.join(directory,images[:-4]+'.npy'),out)
 
 def save_outputs(model_ft,data_dir,save_dir):
+    model_ft = model_ft.to(device)
     k1 = {}
     train_dir = data_dir + '/train'
     img_list = os.listdir(train_dir)
