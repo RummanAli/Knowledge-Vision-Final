@@ -276,7 +276,7 @@ if dataset == "g1020":
     dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
 else:
     with zipfile.ZipFile('archive.zip', 'r') as zip_ref:
-      zip_ref.extractall('./')
+      zip_ref.extractall('./archive/')
     image_datasets = {x: datasets.ImageFolder(os.path.join('./archive', x), data_transforms[x]) for x in ['train', 'test']}
     dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
 
