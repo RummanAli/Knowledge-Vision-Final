@@ -5,6 +5,27 @@ import pandas as pd
 import numpy as np
 import keras
 import tensorflow
+import os
+import torch
+import pandas as pd
+from skimage import io, transform
+import numpy as np
+import matplotlib.pyplot as plt
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms, utils
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+import torchvision
+from torchvision import datasets, models, transforms
+import matplotlib.pyplot as plt
+import time
+import os
+import copy
+import sklearn
+from PIL import Image
+
 
 class KIGenerator(tensorflow.keras.utils.Sequence):
     'Generates data for Keras'
@@ -109,20 +130,20 @@ class g1020KIGenerator(tensorflow.keras.utils.Sequence):
         # Generate data
         for i, ID in enumerate(list_IDs_temp):
             # Store sample
-            img = Image.open('/content/drive/MyDrive/g1020-polygons/' + ID[:-4] + '.png')
+            img = Image.open('./g1020-polygons/' + ID[:-4] + '.png')
             background = Image.new("RGB", img.size, (255, 255, 255))
             background.paste(img, mask = img.split()[3])
             #X[i,] = np.array(background.resize((299, 299), Image.ANTIALIAS))
 
             # Store class
             y[i] = self.labels[ID]
-            k[i] = np.load('/content/drive/MyDrive/knowledge_g1020_best/'+str(ID[:-4])+'.npy',allow_pickle= True)
-            k2[i]= np.load('/content/drive/MyDrive/knowledge2_g1020_best/'+str(ID[:-4])+'.npy',allow_pickle= True)
+            k[i] = np.load('./runs/g1020/resnet/'+str(ID[:-4])+'.npy',allow_pickle= True)
+            k2[i]= np.load('./runs/g1020/densenet/'+str(ID[:-4])+'.npy',allow_pickle= True)
         return [k2,k], tensorflow.keras.utils.to_categorical(y, num_classes=self.n_classes)
 
 
 class G1020Dataset(Dataset):
-    """Face Landmarks dataset."""
+
 
     def __init__(self, list_IDs, labels,transforms, batch_size=16, dim=(299,299), n_channels=3,
                  n_classes=2, shuffle=True):
@@ -143,10 +164,10 @@ class G1020Dataset(Dataset):
             idx = idx.tolist()
 
         img_name = self.list_IDs[idx]
-        img = Image.open('/content/drive/MyDrive/g1020-polygons/' + img_name[:-4] + '.png')
+        img = Image.open('./g1020-polygons/' + img_name[:-4] + '.png')
         background = Image.new("RGB", img.size, (255, 255, 255))
         background.paste(img, mask = img.split()[3])
-        label = labels[img_name]
+        label = self.labels[img_name]
         sample = {'image': background, 'label': label}
 
         if self.transform:

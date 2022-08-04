@@ -1,5 +1,7 @@
-def get_loader():
-    df = pd.read_csv('/content/drive/MyDrive/g1020-polygons/G1020.csv')
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
+def get_loader(path):
+    df = pd.read_csv(path + '/G1020.csv')
     partition = {'train': [],'validation' : []}
     for i in range(900):
         partition['train'].append(df['imageID'][i])
@@ -13,7 +15,7 @@ def get_loader():
     for x in df['patientID'].unique():
         patient_labels.append(labels2[x])
 
-    from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
+    
     skf = StratifiedKFold(n_splits=6, random_state=42, shuffle=True)
     train_folds = []
     val_folds = []
@@ -31,10 +33,10 @@ def get_loader():
             for img in index:
                 fold['train'].append(df['imageID'][img])
 
-    for y in val_fold:
-        a = df['patientID'].unique()[y]
-        index = df.index[df['patientID']== a].tolist()
-        for img in index:
-            fold['validation'].append(df['imageID'][img])
-    folds.append(fold)
+        for y in val_fold:
+            a = df['patientID'].unique()[y]
+            index = df.index[df['patientID']== a].tolist()
+            for img in index:
+                fold['validation'].append(df['imageID'][img])
+        folds.append(fold)
     return folds,labels
