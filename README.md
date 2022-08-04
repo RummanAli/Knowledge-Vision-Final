@@ -12,9 +12,9 @@ Fusion of data and knowledge into neural networks.
 - ISIC-2019: [isic-2019]()
 
 ## training
-- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model resnet --num_classes 2 --batch_size 16 --input_size 224
-- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model densenet --num_classes 2 --batch_size 16 --input_size 224
-- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model knowledge --num_classes 2 --batch_size 16 --input_size 224
+- !python trainer.py --data_dir 'https://drive.google.com/file/d/1jyFdcatWNzPlnpQB3eYCMBWR41kZ-yDV/view?usp=sharing' --dataset 'g1020'  --num_classes 2 --batch_size 16 
+- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model densenet --num_classes 7 --batch_size 16 --input_size 224
+- python trainer.py --data_dir 'g1020_polygons' --dataset g1020 --model knowledge --num_classes 23 --batch_size 16 --input_size 224
 
 ## Dependencies
 - Pytroch
