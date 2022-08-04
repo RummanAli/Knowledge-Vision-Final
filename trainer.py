@@ -29,7 +29,7 @@ import numpy as np
 import keras
 import tensorflow
 from PIL import Image
-
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='Knowledge Incorporation')
 parser.add_argument('--data_dir', default='archive', type=str)
 parser.add_argument('--dataset', default='archive', type=str)
