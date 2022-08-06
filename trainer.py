@@ -325,7 +325,7 @@ def knowledge_incorporated_model(num_classes):#pretrained_model):
 
 
 if dataset == "g1020":
-    training_generator = g1020KIGenerator(folds[4]['train'], labels)
+    train_generator = g1020KIGenerator(folds[4]['train'], labels)
     validation_generator = g1020KIGenerator(folds[4]['validation'], labels)
 else:
     list_IDs,list_IDs2,labels,labels2 = get_data_IDs(data_dir)
