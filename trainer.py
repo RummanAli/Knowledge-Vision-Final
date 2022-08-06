@@ -183,8 +183,8 @@ def save_outputs(model_ft,data_dir,save_dir):
     an_file.close()
 
 def get_data_IDs(data_dir):
-    train_dir = '/archive/train'
-    test_dir = '/archive/test'
+    train_dir = './archive/train'
+    test_dir = './archive/test'
     img_list = os.listdir(train_dir)
     img_list.sort()
     list_IDs = []
@@ -223,7 +223,7 @@ def get_outputs_final_g1020(model_path,fold):
     return y_true,outputs,know1,know2 
 def get_outputs(model_path):
     model = tf.keras.models.load_model(model_path)
-    test_dir = '/archive/test'
+    test_dir = './archive/test'
     y_true = []
     outputs = []
     know1 = []
@@ -243,12 +243,8 @@ def get_outputs(model_path):
             k2 = test_dense_dict[final]
             know1.append(k1)
             know2.append(k2)
-            img = Image.open(final)
-            img = data_transforms['test'](img)
-            img = torch.unsqueeze(img,axis = 0)
-            img = img.to(device)
             output = model([k1,k2])
-            output = np.argmax(output.detach().cpu().numpy(),axis = -1)
+            output = np.argmax(output,axis = -1)
             outputs.append(output)
     return y_true,outputs,know1,know2
 data_transforms = {
@@ -321,7 +317,7 @@ def knowledge_incorporated_model(num_classes):#pretrained_model):
     l2    = Activation('relu')(l1)
     l4    = Dense(64)(l2)
     l5    = Activation('relu')(l4)
-    l6    = Dense(2)(l5)
+    l6    = Dense(num_classes)(l5)
     l7    = Activation('softmax')(l6)
     l8    = Add()([l7,inputB])
     l9    = Activation('softmax')(l8)
@@ -346,7 +342,7 @@ else:
 opt_rms = tf.keras.optimizers.RMSprop(lr=0.001,decay=1e-6)
 final_model = knowledge_incorporated_model(num_classes)
 final_model.compile(loss='categorical_crossentropy', optimizer=opt_rms, metrics=['accuracy'])
-history_final = final_model.fit_generator(training_generator,validation_data=validation_generator,epochs = 20)
+history_final = final_model.fit_generator(train_generator,validation_data=validation_generator,epochs = 20)
 tf.keras.models.save_model(final_model,'./runs/'+dataset+'/g1020/kI.pth')
 if dataset == "g1020":
     y_true,preds,know1,know2 = get_outputs_final_g1020('./runs/'+dataset+'/g1020/kI.pth',folds[4]['validation'])
